@@ -25,7 +25,7 @@ class App extends Component {
           <Title>Welcome to React created with Custom React Scripts!</Title>
         </Header>
         <Intro>
-          To get started, edit <code>src/App.js</code> and save to reload.
+          To get started, edit <code>src/client/App.js</code> and save to reload.
         </Intro>
       </Container>
     );
