@@ -1,0 +1,16 @@
+{
+  "verbose": true,
+  "ignore": [
+    "public/*",
+    "node_modules/*",
+    "src/client/*"
+  ],
+  "watch": [
+    ".env",
+    "src/server/*"
+  ],
+  "execMap": {
+    "js": "node"
+  },
+  "ext": "js json"
+}
