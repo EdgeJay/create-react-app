@@ -10,7 +10,7 @@
     "src/server/*"
   ],
   "execMap": {
-    "js": "node"
+    "js": "eslint -c ./.eslintrc \"./src/server/**\" && node"
   },
   "ext": "js json"
 }
