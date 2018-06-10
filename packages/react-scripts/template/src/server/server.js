@@ -6,4 +6,6 @@ app.use(async ctx => {
   ctx.body = 'Hello world!';
 });
 
-app.listen(process.env.NODE_PORT);
+app.listen(process.env.NODE_PORT, () => {
+  console.log(`Server running at port ${process.env.NODE_PORT}`);
+});
