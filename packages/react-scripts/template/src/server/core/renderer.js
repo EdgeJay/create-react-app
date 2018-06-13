@@ -1,5 +1,15 @@
+/**
+ * Based on https://medium.com/@cereallarceny/server-side-rendering-with-create-react-app-fiber-react-router-v4-helmet-redux-and-thunk-275cb25ca972
+ */
+
 import fs from 'fs';
 import path from 'path';
+import React from 'react';
+import { renderToString } from 'react-dom/server';
+import { Provider } from 'react-redux';
+import { ConnectedRouter } from 'connected-react-router';
+import createStore from '../../common/store';
+import App from '../../client/App';
 
 const htmlTemplatePath = path.resolve(__dirname, '../../../public/index.html');
 
@@ -24,6 +34,15 @@ export function createHtmlContent({ htmlTemplate, mountContent }) {
 }
 
 export default async ctx => {
-  const template = await getHtmlTemplate(htmlTemplatePath);
-  return template;
+  const htmlTemplate = await getHtmlTemplate(htmlTemplatePath);
+  const path = ctx.request.href.split(ctx.request.host)[1];
+  const { store, history } = createStore(path);
+  const mountContent = renderToString(
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <App />
+      </ConnectedRouter>
+    </Provider>
+  );
+  return createHtmlContent({ htmlTemplate, mountContent });
 };
