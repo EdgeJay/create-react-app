@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { Route } from 'react-router';
 import { Link } from 'react-router-dom';
-import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux';
-import createHistory from 'history/createBrowserHistory';
+import { ConnectedRouter } from 'connected-react-router';
 import styled from 'styled-components';
+import createStore from '../common/store';
 import logo from './logo.svg';
 import './App.css';
-
-const history = createHistory();
-const middleware = routerMiddleware(history);
-const store = createStore(combineReducers({ router: routerReducer }), applyMiddleware(middleware));
 
 const Container = styled.div`text-align: center;`;
 
@@ -40,6 +35,8 @@ const Menu = styled.ul`
     margin-top: 10px;
   }
 `;
+
+const { store, history } = createStore();
 
 class App extends Component {
   render() {
