@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import { Provider } from 'react-redux';
 import { Route } from 'react-router';
 import { Link } from 'react-router-dom';
-import { ConnectedRouter } from 'connected-react-router';
 import styled from 'styled-components';
-import createStore from '../common/store';
 import logo from './logo.svg';
 import './App.css';
 
@@ -36,48 +33,42 @@ const Menu = styled.ul`
   }
 `;
 
-const { store, history } = createStore();
-
 class App extends Component {
   render() {
     return (
-      <Provider store={store}>
-        <Container>
-          <Header>
-            <img src={logo} className="App-logo" alt="logo" />
-            <Title>Welcome to React created with Custom React Scripts!</Title>
-          </Header>
-          <ConnectedRouter history={history}>
-            <React.Fragment>
-              <Route
-                exact
-                path="/"
-                render={props => (
-                  <React.Fragment>
-                    <Intro {...props}>
-                      To get started, edit <code>src/client/App.js</code> and save to reload.
-                    </Intro>
-                    <Menu>
-                      <li>
-                        <Link to="/foo">Foo</Link>
-                      </li>
-                      <li>
-                        <Link to="/bar">Bar</Link>
-                      </li>
-                      <li>
-                        <Link to="/baz">Baz</Link>
-                      </li>
-                    </Menu>
-                  </React.Fragment>
-                )}
-              />
-              <Route path="/foo" render={props => <p>Foo!</p>} />
-              <Route path="/bar" render={props => <p>Bar!</p>} />
-              <Route path="/baz" render={props => <p>Baz!</p>} />
-            </React.Fragment>
-          </ConnectedRouter>
-        </Container>
-      </Provider>
+      <Container>
+        <Header>
+          <img src={logo} className="App-logo" alt="logo" />
+          <Title>Welcome to React created with Custom React Scripts!</Title>
+        </Header>
+        <React.Fragment>
+          <Route
+            exact
+            path="/"
+            render={props => (
+              <React.Fragment>
+                <Intro {...props}>
+                  To get started, edit <code>src/client/App.js</code> and save to reload.
+                </Intro>
+                <Menu>
+                  <li>
+                    <Link to="/foo">Foo</Link>
+                  </li>
+                  <li>
+                    <Link to="/bar">Bar</Link>
+                  </li>
+                  <li>
+                    <Link to="/baz">Baz</Link>
+                  </li>
+                </Menu>
+              </React.Fragment>
+            )}
+          />
+          <Route path="/foo" render={props => <p>Foo!</p>} />
+          <Route path="/bar" render={props => <p>Bar!</p>} />
+          <Route path="/baz" render={props => <p>Baz!</p>} />
+        </React.Fragment>
+      </Container>
     );
   }
 }
