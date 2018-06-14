@@ -11,7 +11,11 @@ import { ConnectedRouter } from 'connected-react-router';
 import createStore from '../../common/store';
 import App from '../../client/App';
 
-const htmlTemplatePath = path.resolve(__dirname, '../../../public/index.html');
+// if isRunningInPackage is true means that script is running in original create-react-app repo
+const isRunningInPackage = __dirname.includes('/react-scripts');
+const htmlTemplatePath = isRunningInPackage
+  ? path.resolve(__dirname, '../../../../../../build/index.html')
+  : path.resolve(__dirname, './build/index.html');
 
 function getHtmlTemplate(path) {
   return new Promise((resolve, reject) => {
