@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import logo from './logo.svg';
+import logo from './assets/img/logo.svg';
 import './App.css';
 
 const Container = styled.div`text-align: center;`;
