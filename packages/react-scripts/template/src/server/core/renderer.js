@@ -8,14 +8,12 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
+import { getBuildFolderPath } from '../../common/utils/appUtil';
 import createStore from '../../common/store';
 import App from '../../client/App';
 
 // if isRunningInPackage is true means that script is running in original create-react-app repo
-const isRunningInPackage = __dirname.includes('/react-scripts');
-const htmlTemplatePath = isRunningInPackage
-  ? path.resolve(__dirname, '../../../../../../build/index.html')
-  : path.resolve(__dirname, './build/index.html');
+const htmlTemplatePath = path.resolve(getBuildFolderPath(), 'index.html');
 
 function getHtmlTemplate(path) {
   return new Promise((resolve, reject) => {
