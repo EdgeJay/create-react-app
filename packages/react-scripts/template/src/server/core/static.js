@@ -1,4 +1,3 @@
-import path from 'path';
 import serve from 'koa-static';
 import { getBuildFolderPath } from '../../common/utils/appUtil';
 
