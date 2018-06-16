@@ -24,7 +24,7 @@ require('babel-register')({
           '.webm',
         ],
         baseDir: '/',
-        baseUri: 'static/media',
+        baseUri: '/static/media',
       },
     ],
   ],

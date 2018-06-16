@@ -27,10 +27,14 @@ function getHtmlTemplate(path) {
   });
 }
 
-export function createHtmlContent({ htmlTemplate, mountContent }) {
+export function createHtmlContent({ htmlTemplate, mountContent, preload }) {
   htmlTemplate = htmlTemplate.replace(
     '<div id="root"></div>',
     `<div id="root">${mountContent}</div>`
+  );
+  htmlTemplate = htmlTemplate.replace(
+    'window.__preload__={}',
+    `window.__preload__ = ${JSON.stringify(preload)}`
   );
   return htmlTemplate;
 }
@@ -38,7 +42,7 @@ export function createHtmlContent({ htmlTemplate, mountContent }) {
 export default async ctx => {
   const htmlTemplate = await getHtmlTemplate(htmlTemplatePath);
   const path = ctx.request.href.split(ctx.request.host)[1];
-  const { store, history } = createStore(path);
+  const { store, history } = await createStore(path);
   const mountContent = renderToString(
     <Provider store={store}>
       <ConnectedRouter history={history}>
@@ -46,5 +50,5 @@ export default async ctx => {
       </ConnectedRouter>
     </Provider>
   );
-  return createHtmlContent({ htmlTemplate, mountContent });
+  return createHtmlContent({ htmlTemplate, mountContent, preload: store.getState() });
 };

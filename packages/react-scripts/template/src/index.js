@@ -7,14 +7,19 @@ import App from './client/App';
 import registerServiceWorker from './registerServiceWorker';
 import createStore from './common/store';
 
-const { store, history } = createStore();
+async function initialize() {
+  const { store, history } = await createStore();
 
-ReactDOM.render(
-  <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <App />
-    </ConnectedRouter>
-  </Provider>,
-  document.getElementById('root')
-);
-registerServiceWorker();
+  ReactDOM.hydrate(
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <App />
+      </ConnectedRouter>
+    </Provider>,
+    document.getElementById('root')
+  );
+
+  registerServiceWorker();
+}
+
+initialize();
