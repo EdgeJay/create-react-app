@@ -25,18 +25,30 @@ function getAssetManifest() {
 
   return new Promise((resolve, reject) => {
     const assetManifestPath = path.resolve(getBuildFolderPath(), 'asset-manifest.json');
-    fs.readFile(assetManifestPath, 'utf8', (err, manifest) => {
+    fs.readFile(assetManifestPath, 'utf8', (err, data) => {
       if (err) {
         reject(err);
       } else {
-        resolve(manifest);
+        try {
+          let manifest = JSON.parse(data);
+          manifest = Object.keys(manifest).reduce(
+            (acc, val) => ({
+              ...acc,
+              [`/${val}`]: `/${manifest[val]}`,
+            }),
+            {}
+          );
+          resolve(manifest);
+        } catch (parseError) {
+          reject(parseError);
+        }
       }
     });
   });
 }
 
 async function getServerInitialState() {
-  const assetManifest = JSON.parse(await getAssetManifest());
+  const assetManifest = await getAssetManifest();
   return {
     app: {
       assetManifest,
