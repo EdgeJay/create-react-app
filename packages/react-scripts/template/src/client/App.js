@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router';
+import { connect } from 'react-redux';
+import { withRouter, Route } from 'react-router';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { translateAssetUrl } from '../common/utils/assetUtil';
 import logo from './assets/img/logo.svg';
 import './App.css';
 
@@ -35,10 +37,12 @@ const Menu = styled.ul`
 
 class App extends Component {
   render() {
+    const { assetManifest } = this.props;
+
     return (
       <Container>
         <Header>
-          <img src={logo} className="App-logo" alt="logo" />
+          <img src={translateAssetUrl(assetManifest, logo)} className="App-logo" alt="logo" />
           <Title>Welcome to React created with Custom React Scripts!</Title>
         </Header>
         <React.Fragment>
@@ -73,4 +77,10 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = ({ app }) => ({
+  ...app,
+});
+
+const mapDispatchToProps = dispatch => ({});
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
